@@ -1,8 +1,13 @@
-TASK backup
-RUN "backup.sh"
-EVERY DAY AT 10:00
-
-TASK email
-RUN "send_email.sh"
-AFTER backup
-IF SUCCESS
+TASK backup {
+    RUN "backup.sh"
+    EVERY DAY AT 10:00
+}
+TASK email {
+    RUN "send_email.sh"
+    AFTER backup
+    IF success
+}
+TASK dailyReport {
+    RUN "report.py"
+    EVERY DAY AT 06:00
+}

@@ -1,51 +1,68 @@
 %{
     #include <stdio.h>
     #include <stdlib.h>
+    #include <string.h>
 
     void yyerror(const char *s);
     int yylex();
+    extern int line_num;
 %}
 
-%token TASK RUN EVERY DAY AT AFTER IF SUCCESS IDENTIFIER STRING TIME
+%token TASK RUN EVERY DAY AT AFTER IF SUCCESS
+%token IDENTIFIER STRING TIME
 
 %%
 
 program:
-    tasks
+    task_list
+    { printf("\n--- EXECUTION COMPLETE ---\n"); }
 ;
 
-tasks:
-    tasks task
+task_list:
+    task_list task
     | task
 ;
 
 task:
-    TASK IDENTIFIER RUN STRING schedule dependency condition
+    TASK IDENTIFIER '{' statements '}'
 ;
 
-schedule:
+statements:
+    statements statement
+    | statement
+;
+
+statement:
+    run_stmt
+    | schedule_stmt
+    | dependency_stmt
+    | condition_stmt
+;
+
+run_stmt:
+    RUN STRING
+;
+
+schedule_stmt:
     EVERY DAY AT TIME
 ;
- 
-dependency:
+
+dependency_stmt:
     AFTER IDENTIFIER
-    | /* empty */
 ;
 
-condition:
+condition_stmt:
     IF SUCCESS
-    | /* empty */
 ;
 
 %%
 
 void yyerror(const char *s) {
-    printf("Syntax Error: %s\n", s);
+    fprintf(stderr, "Syntax Error at line %d: %s\n", line_num, s);
 }
 
 int main() {
-    printf("Parsing started...\n");
+    printf("Parsing TaskLang++ input...\n\n--- EXECUTION START ---\n");
     yyparse();
-    printf("Parsing completed.\n");
     return 0;
 }

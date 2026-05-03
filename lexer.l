@@ -1,26 +1,38 @@
 %{
     #include "parser.tab.h"
     #include <stdio.h>
+    #include <string.h>
+
+    int line_num = 1;
 %}
 
 %%
 
-"TASK" { return TASK; }
-"RUN" { return RUN; }
-"EVERY" { return EVERY; }
-"DAY" { return DAY; }
-"AT" { return AT; }
-"AFTER" { return AFTER; }
-"IF" { return IF; }
-"SUCCESS" { return SUCCESS; }
+"TASK"      { return TASK; }
+"RUN"       { return RUN; }
+"EVERY"     { return EVERY; }
+"DAY"       { return DAY; }
+"AT"        { return AT; }
+"AFTER"     { return AFTER; }
+"IF"        { return IF; }
+"success"   { return SUCCESS; }
 
-\"[^\"]*\"   { return STRING; }
+"{"         { return '{'; }
+"}"         { return '}'; }
 
+[0-9]{2}":"[0-9]{2}         { return TIME; }
 
-[a-zA-Z_][a-zA-Z0-9_]* { return IDENTIFIER; }
+\"[^\"]*\"                  { return STRING; }
 
-[ \t\n]     ;
+[a-zA-Z_][a-zA-Z0-9_]*     { return IDENTIFIER; }
 
-.           { printf("Lexical Error: Unknown character %s\n", yytext); }
+\n          { line_num++; }
+[ \t\r]     { /* skip whitespace */ }
+
+.           { fprintf(stderr, "Lexical Error at line %d: unknown character '%s'\n", line_num, yytext); }
 
 %%
+
+int yywrap() {
+    return 1;
+}
