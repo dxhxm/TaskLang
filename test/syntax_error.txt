@@ -1,0 +1,4 @@
+TASK test {
+    RUN "a.sh"
+    EVERY DAY 10:00
+}
