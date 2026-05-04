@@ -41,18 +41,22 @@ statement:
 
 run_stmt:
     RUN STRING
+    { printf("RUN command detected\n"); }
 ;
 
 schedule_stmt:
     EVERY DAY AT TIME
+    { printf("schedule: Daily task registered\n"); }
 ;
 
 dependency_stmt:
     AFTER IDENTIFIER
+    { printf("Dependency detected\n"); }
 ;
 
 condition_stmt:
     IF SUCCESS
+    { printf("Condition: Execute on success\n"); }
 ;
 
 %%
