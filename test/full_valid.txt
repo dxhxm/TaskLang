@@ -1,0 +1,10 @@
+TASK A {
+    RUN "a.sh"
+    EVERY DAY AT 09:00
+}
+
+TASK B {
+    RUN "b.sh"
+    AFTER A 
+    IF success
+}

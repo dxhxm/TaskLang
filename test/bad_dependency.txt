@@ -1,0 +1,4 @@
+TASK email {
+    RUN "mail.sh"
+    AFTER backup
+}

@@ -1,0 +1,7 @@
+TASK backup {
+    RUN "a.sh"
+}
+
+TASK backup {
+    RUN "b.sh"
+}
