@@ -5,7 +5,7 @@ TASK backup {
 TASK email {
     RUN "send_email.sh"
     AFTER backup
-    IF success
+    IF SUCCESS
 }
 TASK dailyReport {
     RUN "report.py"
