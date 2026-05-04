@@ -33,7 +33,6 @@
 
 program:
     task_list
-    { printf("\n--- EXECUTION COMPLETE ---\n"); }
 ;
 
 task_list:
@@ -67,7 +66,7 @@ statement:
 
 run_stmt:
     RUN STRING
-    { printf("RUN command detected\n"); }
+    { printf("RUN command: %s\n", $2); }
 ;
 
 schedule_stmt:
