@@ -55,7 +55,7 @@ TASK <task_name> {
     RUN "<command>"
     EVERY DAY AT HH:MM
     AFTER <task_name>
-    IF success
+    IF SUCCESS
 }
 ```
 
@@ -72,7 +72,7 @@ TASK backup {
 TASK email {
     RUN "send_email.sh"
     AFTER backup
-    IF success
+    IF SUCCESS
 }
 ```
 
@@ -90,7 +90,7 @@ TASK email {
 | AT      | Specifies execution time    |
 | AFTER   | Defines task dependency     |
 | IF      | Conditional execution       |
-| success | Condition keyword           |
+| SUCCESS | Condition keyword           |
 
 ---
 
@@ -175,20 +175,5 @@ The system detects:
 * C Programming Language
 * Flex (Lexical Analyzer)
 * Bison (Parser Generator)
-
----
-
-## 👨‍💻 Author
-
-Developed as part of the **SE2052 – Programming Paradigms** assignment.
-
----
-
-## 🚀 Future Improvements
-
-* Circular dependency detection
-* Support for monthly/custom schedules
-* Execution engine for real task automation
-* AST (Abstract Syntax Tree) visualization
 
 ---

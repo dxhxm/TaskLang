@@ -26,7 +26,7 @@
     char* str;
 }
 
-%token TASK RUN EVERY DAY AT AFTER IF SUCCESS
+%token TASK RUN EVERY DAY WEEK AT AFTER IF SUCCESS
 %token <str> IDENTIFIER STRING TIME
 
 %%
@@ -72,6 +72,9 @@ run_stmt:
 schedule_stmt:
     EVERY DAY AT TIME
     { printf("Schedule: Daily task registered\n"); }
+    |
+    EVERY WEEK AT TIME
+    { printf("Schedule: Weekly task registered\n"); }
 ;
 
 dependency_stmt:

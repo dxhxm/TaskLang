@@ -12,10 +12,11 @@
 "RUN"       { return RUN; }
 "EVERY"     { return EVERY; }
 "DAY"       { return DAY; }
+"WEEK"      { return WEEK; }
 "AT"        { return AT; }
 "AFTER"     { return AFTER; }
 "IF"        { return IF; }
-"success"   { return SUCCESS; }
+"SUCCESS"   { return SUCCESS; }
 
 "{"         { return '{'; }
 "}"         { return '}'; }
