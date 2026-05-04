@@ -73,7 +73,13 @@ schedule_stmt:
 
 dependency_stmt:
     AFTER IDENTIFIER
-    { printf("Dependency detected\n"); }
+    {
+        if (!task_exists($2)) {
+            printf("Semantic Error: Dependency '%s' not defined before use\n", $2);
+        } else {
+            printf("Valid dependency on '%s'\n", $2);
+        }
+    }
 ;
 
 condition_stmt:
