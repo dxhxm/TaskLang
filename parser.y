@@ -90,7 +90,7 @@ condition_stmt:
 %%
 
 void yyerror(const char *s) {
-    fprintf(stderr, "Syntax Error at line %d: %s\n", line_num, s);
+    fprintf(stderr, "Syntax Error at line %d: Invalid structure\n", line_num);
 }
 
 int main() {
