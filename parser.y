@@ -6,6 +6,20 @@
     void yyerror(const char *s);
     int yylex();
     extern int line_num;
+
+    #define MAX_TASKS 100
+
+    char* task_list_store[MAX_TASKS];
+    int task_count = 0;
+
+    int task_exists(char* name) {
+        for (int i = 0; i < task_count; i++) {
+            if (strcmp(task_list_store[i], name) == 0) {
+                return 1;
+            }
+        }
+        return 0;
+    }
 %}
 
 %token TASK RUN EVERY DAY AT AFTER IF SUCCESS
@@ -25,6 +39,14 @@ task_list:
 
 task:
     TASK IDENTIFIER '{' statements '}'
+    {
+        if (task_exists($2)) {
+            printf("Semantic Error: Duplicate task '%s'\n", $2);
+        } else {
+            task_list_store[task_count++] = strdup($2);
+            printf("Task '%s' registered\n", $2);
+        }
+    }
 ;
 
 statements:
