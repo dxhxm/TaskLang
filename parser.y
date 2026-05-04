@@ -100,5 +100,6 @@ void yyerror(const char *s) {
 int main() {
     printf("Parsing TaskLang++ input...\n\n--- EXECUTION START ---\n");
     yyparse();
+    printf("\n--- EXECUTION END ---\n");
     return 0;
 }
