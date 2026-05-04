@@ -20,11 +20,20 @@
 "{"         { return '{'; }
 "}"         { return '}'; }
 
-[0-9]{2}":"[0-9]{2}         { return TIME; }
+\"[^\"]*\" {
+    yylval.str = strdup(yytext);
+    return STRING;
+}
 
-\"[^\"]*\"                  { return STRING; }
+[0-9]{2}":"[0-9]{2} {
+    yylval.str = strdup(yytext);
+    return TIME;
+}
 
-[a-zA-Z_][a-zA-Z0-9_]*     { return IDENTIFIER; }
+[a-zA-Z_][a-zA-Z0-9_]* {
+    yylval.str = strdup(yytext);
+    return IDENTIFIER;
+}
 
 \n          { line_num++; }
 [ \t\r]     { /* skip whitespace */ }
